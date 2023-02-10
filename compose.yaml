@@ -1,0 +1,13 @@
+services:
+  app:
+    build: .
+    container_name: crawler
+    volumes:
+      - ./src/:/src/
+      - ./test/:/test/
+  log-view:
+    image: amir20/dozzle:latest
+    container_name: log-view
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
+    ports: ["9999:8080"]
+
