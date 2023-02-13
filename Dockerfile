@@ -6,11 +6,11 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update
 COPY requirements.txt ./
 RUN ["pip3", "install", "-r", "requirements.txt"]
+ENV PYTHONPATH="${PYTHONPATH}:${PWD}"
 
 COPY src /src
 COPY test /test
 
-ENV PYTHONPATH="${PYTHONPATH}:${PWD}"
 
 # RUN ["python3", "-W", "ignore", "crawler.py"]
 

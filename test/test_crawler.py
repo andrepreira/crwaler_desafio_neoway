@@ -1,6 +1,5 @@
 import unittest
 from unittest.mock import patch
-from bs4 import BeautifulSoup
 import pandas as pd
 
 from src.crawler import *
