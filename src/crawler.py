@@ -1,7 +1,9 @@
+import re
 from typing import Tuple
+
 import requests
-from bs4 import BeautifulSoup
 import pandas as pd
+from bs4 import BeautifulSoup
 
 URI_CORREIOS="https://www2.correios.com.br/sistemas/buscacep"
 
@@ -16,8 +18,8 @@ class Crawler:
         if response.status_code != 200:
             raise Exception(f"Não foi possível buscar os UFs")
         soup = BeautifulSoup(response.content, "html.parser")
-        select_element = soup.find("select").option.children
-        return [uf.get_text() for uf in select_element if uf != " "]
+        options_list = soup.find("select").find_all("option", attrs={"value": re.compile(r"^[A-Z]{2}$")})
+        return [uf.get_text() for uf in options_list if uf != " "]
 
     def search_datas(self, uf_list: list) -> Tuple[list, list]:
         uf_error = []
@@ -50,8 +52,10 @@ class Crawler:
     def execute(self):
         # Get UFs
         uf_list = self.find_uf()
+        print(uf_list)
         df = pd.DataFrame([])
         cont = 0
+        cont_limit = 10
         while True:
             datas, uf_error  = self.search_datas(uf_list)
             df = self.dataframe(df, datas)
@@ -59,6 +63,9 @@ class Crawler:
             print(f"UFs not searched in try number {cont}: {uf_error}")
             if not uf_error:
                 break
+            if cont == cont_limit:
+                exit(f"Error: The limit of {cont_limit} tries was reached")
+                
             uf_error = uf_list
         df = df.drop_duplicates()
         df['id'] = df.index
