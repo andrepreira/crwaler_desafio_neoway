@@ -13,23 +13,24 @@ jobs:
     runs-on: ubuntu-20.04
     environment: 
       name: dev
-      url: https://dev.example.com
+      url: https://github.com/andrepreira/crwaler_desafio_neoway
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Python 3.10.10
       uses: actions/setup-python@v2
       with:
         python-version: 3.10.10
+        cache: 'pip' # caching pip dependencies
 
     - name: Install dependencies
       run: |
         python -m venv venv
         source venv/bin/activate
         python -m pip install --upgrade pip
-        pip install -r requirements.txt --use-pep517
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip freeze
 
     - name: Run tests
