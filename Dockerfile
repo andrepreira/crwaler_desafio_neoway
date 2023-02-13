@@ -10,6 +10,8 @@ RUN ["pip3", "install", "-r", "requirements.txt"]
 COPY src /src
 COPY test /test
 
+ENV PYTHONPATH="${PYTHONPATH}:${PWD}"
+
 # RUN ["python3", "-W", "ignore", "crawler.py"]
 
 CMD [ "tail", "-f", "/dev/null" ]
