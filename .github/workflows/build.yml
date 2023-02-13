@@ -10,7 +10,7 @@ on:
   
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     environment: 
       name: dev
       url: https://dev.example.com
@@ -28,6 +28,7 @@ jobs:
       run: |
         python -m venv venv
         . venv/bin/activate
+        python --version
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
