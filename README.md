@@ -1,5 +1,9 @@
 # Crawler Desafio Neoway
 
+crawler to get data from https://www2.correios.com.br/sistemas/buscacep/buscaFaixaCep.cfm
+
+clone the project
+
 ## RUN WITHOUT DOCKER
 
 export PYTHONPATH="${PYTHONPATH}:${PWD}"
