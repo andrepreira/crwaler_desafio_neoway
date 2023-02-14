@@ -1,5 +1,26 @@
 # Crawler Desafio Neoway
 
+## RUN WITHOUT DOCKER
+
+export PYTHONPATH="${PYTHONPATH}:${PWD}"
+
+sudo chmod -R 777 src/
+
+python test/test_crawler.py
+
+python src/crawler.py
+
+## RUN WITH DOCKER
+
+sudo docker-compose up --build test_crawler
+
+sudo docker-compose up --build crawler
+
+### RUN DOCKER LOGS
+sudo docker-compose up --build -d log-view
+
+you can see the log in http://localhost:9999
+
 # Data Pirates challenge
 
 Welcome to the Data Pirates challenge.
