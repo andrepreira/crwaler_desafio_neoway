@@ -52,7 +52,6 @@ class Crawler:
     def execute(self):
         # Get UFs
         uf_list = self.find_uf()
-        print(uf_list)
         df = pd.DataFrame([])
         cont = 0
         cont_limit = 10
